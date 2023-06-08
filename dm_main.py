@@ -170,6 +170,15 @@ class DmTicketHelper(object):
                     break
         time.sleep(3)
         print("选择具体的票价")
+        element_list = self.web_driver.find_elements_by_class_name('item-text item-text-normal')
+        print(len(element_list))
+        for element in element_list:
+            data_value = str(element.get_attribute('innerText'))
+            print(f"data_value:{data_value}")
+            if data_value.count(self.rob_price) > 0:
+                print("选择票档")
+                element.click()
+
 
 
         # 3. 抢票
@@ -185,5 +194,6 @@ if __name__ == "__main__":
     dm_ticket.set_mobile_option({"deviceName": "iPhone 6"})
     dm_ticket.set_ticket_url('721747323601')
     dm_ticket.set_rob_time('2023','06','16')
+    dm_ticket.set_rob_price('289')
     dm_ticket.run()
 
